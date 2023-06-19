@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="stylesheets/style.css">
+
+  <title>TODO APP</title>
+
+  <script src="javascripts/taskcontrol.js"></script>
+</head>
+
+<body>
+
+  <div class="form-task">
+    <div class="new-task">
+      <label>Nova Atividade:</label>
+    </div>
+    <form action="/tasks" method="POST">
+      <input type="text" id="name" name="name" value="" required placeholder="Tarefa" />
+      <select name="situation" id="situation" placeholder="Situação">
+        <option value="situation">Situação</option>
+        <option value="waiting">Aguardando</option>
+        <option value="inprogress">Em Andamento</option>
+      </select>
+      <input type="submit" value="Salvar" class="btn-primary" />
+    </form>
+  </div>
+
+  <div id="error">
+    {{#error}}
+    <label class="error">
+      {{error}}
+    </label>
+    {{/error}}
+  </div>
+
+  <div>
+    <label class="title">Aguardando</label>
+    <hr />
+    <div class="list-waiting">
+      <ul id="waiting">
+        <!-- {{#waiting}}
+           <li style="background-color: {{priority}}" >
+            <label onclick="setColor(event, {{id}})">
+              {{name}}
+            </label>
+             <a href="/tasks/{{id}}/inprogress" class="button-send">
+               Iniciar
+            </a>
+            </li>
+         {{/waiting}} -->
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <label class="title">Em Andamento</label>
+    <hr />
+    <div class="list-inprogress">
+      <ul id="inprogress">
+        <!-- {{#inProgress}}
+           <li style="background-color: {{priority}}" >
+            <label onclick="setColor(event, {{id}})">
+              {{name}}
+            </label>
+            <a href="/tasks/{{id}}/done" class="button-send">
+               Concluir
+            </a>
+            </li>
+         {{/inProgress}} -->
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <label class="title">Finalizados</label>
+    <hr />
+    <div class="list-done">
+      <ul id="done">
+        <!-- {{#done}}
+              <li style="background-color: {{priority}}">
+            <label class="text-done">
+              {{name}}
+            </label>
+            </li>
+            {{/done}} -->
+      </ul>
+    </div>
+  </div>
+
+</body>
+
+</html>
