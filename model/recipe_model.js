@@ -1,7 +1,9 @@
 const { DataTypes, Op } = require("sequelize")
 const sequelize = require("../helpers/database")
 const RecipeCategory = require('./recipe_category_model')
+const RecipeIngredients = require('./recipe_ingredients_model')
 const Ingredient = require('./ingredient_model')
+
 
 const RecipeModel = sequelize.define('Recipe',
     {
@@ -21,12 +23,11 @@ const RecipeModel = sequelize.define('Recipe',
     { tableName: 'recipes' }
 )
 
-
 RecipeModel.belongsTo(RecipeCategory.Model, { foreignKey: 'categoryId' });
-RecipeCategory.Model.hasMany(RecipeModel, { foreignKey: 'categoryId' })
+RecipeCategory.Model.hasMany(RecipeModel, { foreignKey: 'categoryId' });
 
-RecipeModel.belongsToMany(Ingredient.Model, { foreignKey: 'ingredientsId' });
-Ingredient.Model.belongsToMany(RecipeModel, { foreignKey: 'ingredientsId' })
+RecipeModel.belongsToMany(Ingredient.Model, { through: RecipeIngredients.Model, foreignKey: 'recipeId' });
+Ingredient.Model.belongsToMany(RecipeModel, { through: RecipeIngredients.Model, foreignKey: 'ingredientId' });
 
 
 module.exports = {
