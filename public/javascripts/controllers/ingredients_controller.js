@@ -1,99 +1,53 @@
-// import taskService from "./taskservice.js"
+import ingredientsServices from "../services/ingredients_services.js"
 
-async function refreshTasks() {
-    let resp = await taskService.getAll()
+async function refreshAll() {
+    let respIngredients = await ingredientsServices.getAll();
 
-    if (resp.status) {
-        resetError();
-        setTaskWaiting(resp.data.filter((e) => e.situation == 'waiting'));
-        setTaskProgress(resp.data.filter((e) => e.situation == 'inprogress'));
-        setTaskDone(resp.data.filter((e) => e.situation == 'done'));
+    if (respIngredients && respIngredients.status == true) {
+        setCategories(respIngredients.data);
     }
+
 }
 
-async function setTaskWaiting(items) {
-    let ul = document.querySelector("#waiting");
+async function setCategories(items) {
+    let ul = document.querySelector("#ingredients");
     ul.innerHTML = "";
 
     items.forEach((item) => {
         let li = document.createElement("li")
-        let edit = document.createElement("label")
         let label = document.createElement("label")
+        let button = document.createElement("button")
+        button.className = "btn btn-link text-danger text-decoration-none"
+        button.innerText = "Excluir";
 
-        edit.addEventListener("click", async function () {
-            await taskService.update(item.id, item.name, 'inprogress').then((e) => {
-                if (e.status == true) {
-                    refreshTasks();
-                } else {
-                    setError(e.message)
-                }
-            });
+        button.addEventListener("click", async function () {
+            if (confirm(`Deseja excluir a categoria: ${item.name}?`) == true) {
+                await ingredientsServices.delete(item.id);
+
+                refreshAll();
+            }
         })
 
-        li.addEventListener("click", function () {
-            li.style.backgroundColor = getRandomColor();
-        })
-
-        edit.className = "button-send"
-        edit.innerText = "Iniciar"
-
-        label.innerText = item.name + " ";
+        label.innerText = `${item.name} - `;
 
         li.appendChild(label)
-        li.appendChild(edit)
-
+        li.appendChild(button)
         ul.appendChild(li)
     })
 }
 
-async function setTaskProgress(items) {
-    let ul = document.querySelector("#inprogress");
-    ul.innerHTML = "";
+async function createIngredient() {
+    let name = document.querySelector("#name")
 
-    items.forEach((item) => {
-        let li = document.createElement("li")
-        let edit = document.createElement("label")
-        let label = document.createElement("label")
-
-        edit.addEventListener("click", async function () {
-            await taskService.update(item.id, item.name, 'done').then((e) => {
-                if (e.status == true) {
-                    refreshTasks()
-                } else {
-                    setError(e.message)
-                }
-            });;
-        })
-
-        li.addEventListener("click", function () {
-            li.style.backgroundColor = getRandomColor();
-        })
-
-        edit.className = "button-send"
-        edit.innerText = "Concluir"
-
-        label.innerText = item.name + " ";
-
-        li.appendChild(label)
-        li.appendChild(edit)
-        ul.appendChild(li)
+    await ingredientsServices.create(name.value).then((e) => {
+        if (e.status == true) {
+            refreshAll();
+            name.value = '';
+        } else {
+            setError(e.message)
+        }
     })
-}
 
-async function setTaskDone(items) {
-    let ul = document.querySelector("#done");
-    ul.innerHTML = "";
-
-    items.forEach((item) => {
-        let li = document.createElement("li")
-        li.className = 'text-done';
-
-        let label = document.createElement("label")
-        label.innerText = item.name + " ";
-
-        li.appendChild(label)
-        ul.appendChild(li)
-    })
 }
 
 function setError(message) {
@@ -114,28 +68,11 @@ function resetError() {
     div.innerHTML = "";
 }
 
-async function createTask() {
-    let name = document.querySelector("#name")
-    let situation = document.querySelector("#situation")
-
-    await taskService.create(name.value, situation.value).then((e) => {
-        if (e.status == true) {
-            refreshTasks()
-            name.value = '';
-            situation.value = situation.options[0].value;
-        } else {
-            setError(e.message)
-        }
-    })
-
-}
-
-
 window.addEventListener("load", function () {
-    // refreshTasks()
+    refreshAll();
 
     document.querySelector("form").addEventListener("submit", async function (evt) {
         evt.preventDefault();
-        createTask();
+        createIngredient();
     })
 })

@@ -1,34 +1,86 @@
+import authServices from "../services/auth_services.js"
+
 let ingrediensServices = {
   getAll: async function () {
-    const response = await fetch('/ingredients')
-    return await response.json()
-  },
-  create: async function (name, situation) {
-    const data = {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ name: name })
+    var user = authServices.getUser();
+
+    if (user) {
+      const data = {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json', 'Authorization': `Bearer: ${user.token}`, },
+      }
+
+      const response = await fetch('/ingredient', data);
+
+      if (response.status == 401) {
+        authServices.logoff()
+      }
+
+      return await response.json()
+
+    } else {
+      authServices.logoff()
     }
-    const response = await fetch('/ingredients', data)
-    return await response.json()
+  },
+  create: async function (name) {
+    var user = authServices.getUser();
+
+    if (user) {
+      const data = {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json', 'Authorization': `Bearer: ${user.token}`, },
+        body: JSON.stringify({ name: name })
+      }
+      const response = await fetch('/ingredient', data)
+
+      if (response.status == 401) {
+        authServices.logoff()
+      }
+
+      return await response.json()
+    } else {
+      authServices.logoff()
+    }
   },
   update: async function (id, name) {
-    const data = {
-      method: 'PUT',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ id: id, name: name, })
+    var user = authServices.getUser();
+
+    if (user) {
+      const data = {
+        method: 'PUT',
+        headers: { 'Content-type': 'application/json', 'Authorization': `Bearer: ${user.token}`, },
+        body: JSON.stringify({ id: id, name: name, })
+      }
+      const response = await fetch(`/ingredient/${id}`, data);
+
+      if (response.status == 401) {
+        authServices.logoff()
+      }
+
+      return await response.json()
+    } else {
+      authServices.logoff()
     }
-    const response = await fetch(`/ingredients/${id}`, data);
-    return await response.json()
   },
   delete: async function (id) {
-    const data = {
-      method: 'DELETE',
-      headers: { 'Content-type': 'application/json' },
-    }
+    var user = authServices.getUser();
 
-    const response = await fetch(`/ingredients/${id}`, data);
-    return await response.json()
+    if (user) {
+      const data = {
+        method: 'DELETE',
+        headers: { 'Content-type': 'application/json', 'Authorization': `Bearer: ${user.token}`, },
+      }
+
+      const response = await fetch(`/ingredient/${id}`, data);
+
+      if (response.status == 401) {
+        authServices.logoff()
+      }
+
+      return await response.json()
+    } else {
+      authServices.logoff()
+    }
   },
 
 }

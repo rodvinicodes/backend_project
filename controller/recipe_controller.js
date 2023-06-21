@@ -11,7 +11,7 @@ const RecipeServices = require('../services/recipe_services');
 
 router.get("/", AuthServices.validateToken, async (req, res) => {
     let recipes = await RecipeModel.list()
-    res.json(sucess(recipes, "list"))
+    res.json(sucess(recipes))
 })
 
 router.get("/:id", AuthServices.validateToken, RecipeServices.validId, async (req, res) => {

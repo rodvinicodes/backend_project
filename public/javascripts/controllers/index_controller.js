@@ -1,97 +1,91 @@
+import authServices from "../services/auth_services.js"
+import ingredientsServices from "../services/ingredients_services.js"
+import recipesServices from "../services/recipe_services.js"
+import recipeCategoriesServices from "../services/recipe_category_services.js"
 
 
-async function refreshTasks() {
-    let resp = await taskService.getAll()
+async function refreshAll() {
+    let respIngredients = await ingredientsServices.getAll();
 
-    if (resp.status) {
-        resetError();
-        setTaskWaiting(resp.data.filter((e) => e.situation == 'waiting'));
-        setTaskProgress(resp.data.filter((e) => e.situation == 'inprogress'));
-        setTaskDone(resp.data.filter((e) => e.situation == 'done'));
+    if (respIngredients && respIngredients.status == true) {
+        setIngredients(respIngredients.data);
     }
+    // let respIngredients = await ingredientsServices.getAll();
+
+    let respCategories = await recipeCategoriesServices.getAll();
+
+    console.log(respCategories);
+
+    if (respCategories && respCategories.status == true) {
+        setCategories(respCategories.data);
+    }
+    // let respIngredients = await ingredientsServices.getAll();
+    console.log(respIngredients);
+
+    // if (resp.status) {
+    //     resetError();
+    //     setrecipes(resp.data.filter((e) => e.situation == 'waiting'));
+    //     setIngredients(resp.data.filter((e) => e.situation == 'inprogress'));
+    //     setTaskDone(resp.data.filter((e) => e.situation == 'done'));
+    // }
 }
 
-async function setTaskWaiting(items) {
-    let ul = document.querySelector("#waiting");
+async function setRecipes(items) {
+    let ul = document.querySelector("#ingredients");
     ul.innerHTML = "";
 
     items.forEach((item) => {
         let li = document.createElement("li")
-        let edit = document.createElement("label")
         let label = document.createElement("label")
 
-        edit.addEventListener("click", async function () {
-            await taskService.update(item.id, item.name, 'inprogress').then((e) => {
-                if (e.status == true) {
-                    refreshTasks();
-                } else {
-                    setError(e.message)
-                }
-            });
-        })
-
         li.addEventListener("click", function () {
-            li.style.backgroundColor = getRandomColor();
+            // li.style.backgroundColor = getRandomColor();
         })
 
-        edit.className = "button-send"
-        edit.innerText = "Iniciar"
-
-        label.innerText = item.name + " ";
+        label.innerText = item.name;
 
         li.appendChild(label)
-        li.appendChild(edit)
 
         ul.appendChild(li)
     })
 }
 
-async function setTaskProgress(items) {
-    let ul = document.querySelector("#inprogress");
+async function setIngredients(items) {
+    let ul = document.querySelector("#ingredients");
     ul.innerHTML = "";
 
     items.forEach((item) => {
         let li = document.createElement("li")
-        let edit = document.createElement("label")
         let label = document.createElement("label")
 
-        edit.addEventListener("click", async function () {
-            await taskService.update(item.id, item.name, 'done').then((e) => {
-                if (e.status == true) {
-                    refreshTasks()
-                } else {
-                    setError(e.message)
-                }
-            });;
-        })
-
         li.addEventListener("click", function () {
-            li.style.backgroundColor = getRandomColor();
+            // li.style.backgroundColor = getRandomColor();
         })
 
-        edit.className = "button-send"
-        edit.innerText = "Concluir"
-
-        label.innerText = item.name + " ";
+        label.innerText = item.name;
 
         li.appendChild(label)
-        li.appendChild(edit)
+
         ul.appendChild(li)
     })
 }
 
-async function setTaskDone(items) {
-    let ul = document.querySelector("#done");
+async function setCategories(items) {
+    let ul = document.querySelector("#categories");
     ul.innerHTML = "";
 
     items.forEach((item) => {
         let li = document.createElement("li")
-        li.className = 'text-done';
-
         let label = document.createElement("label")
-        label.innerText = item.name + " ";
+
+        li.addEventListener("click", function () {
+            // li.style.backgroundColor = getRandomColor();
+        })
+
+        label.innerText = item.name;
 
         li.appendChild(label)
+
         ul.appendChild(li)
     })
 }
@@ -114,23 +108,8 @@ function resetError() {
     div.innerHTML = "";
 }
 
-async function createTask() {
-    let name = document.querySelector("#name")
-    let situation = document.querySelector("#situation")
-
-    await taskService.create(name.value, situation.value).then((e) => {
-        if (e.status == true) {
-            refreshTasks()
-            name.value = '';
-            situation.value = situation.options[0].value;
-        } else {
-            setError(e.message)
-        }
-    })
-
-}
-
 window.addEventListener("load", function () {
+    refreshAll();
 
     // document.querySelector("form").addEventListener("submit", async function (evt) {
     //     evt.preventDefault();

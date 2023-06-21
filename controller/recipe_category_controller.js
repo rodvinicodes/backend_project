@@ -10,7 +10,7 @@ const AuthServices = require('../services/auth_services');
 
 router.get("/", AuthServices.validateToken, (req, res) => {
     RecipeCategoryModel.list().then((categories) => {
-        res.json(sucess(categories, "list"))
+        res.json(sucess(categories))
     })
 })
 

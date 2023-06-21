@@ -14,10 +14,10 @@ router.get("/home",
         res.render("index");
     })
 
-router.get("/register-receipts",
+router.get("/register-recipes",
     // AuthServices.validateToken, 
     (req, res) => {
-        res.render("receipts");
+        res.render("recipes");
     })
 
 router.get("/register-ingredients",
@@ -25,7 +25,7 @@ router.get("/register-ingredients",
     (req, res) => {
         res.render("ingredients");
     })
-router.get("/register-receipt-category",
+router.get("/register-recipe-category",
     // AuthServices.validateToken,
     (req, res) => {
         res.render("recipe_category");

@@ -26,6 +26,11 @@ let authServices = {
   deleteUser: function () {
     localStorage.removeItem('user');
   },
+  logoff: function () {
+    localStorage.removeItem('user');
+    window.location.href = '/';
+    // alert("Usuário não autenticado. Por favor faça login novamente.");
+  },
 }
 
 export default authServices

@@ -6,36 +6,28 @@ let routerServices = {
     if (authServices.isAuth) {
       window.location.href = '/home';
     } else {
-      authServices.deleteUser();
-      window.location.href = '/';
-      alert("Usuário não autenticado. Por favor faça login novamente.");
+      authServices.logoff();
     }
   },
-  goToReceipts: async function () {
+  goToRecipes: async function () {
     if (authServices.isAuth) {
-      window.location.href = '/register-receipts';
+      window.location.href = '/register-recipes';
     } else {
-      authServices.deleteUser();
-      window.location.href = '/';
-      alert("Usuário não autenticado. Por favor faça login novamente.");
+      authServices.logoff()
     }
   },
   goToIngredients: async function () {
     if (authServices.isAuth) {
       window.location.href = '/register-ingredients';
     } else {
-      authServices.deleteUser();
-      window.location.href = '/';
-      alert("Usuário não autenticado. Por favor faça login novamente.");
+      authServices.logoff()
     }
   },
   goToCategories: async function () {
     if (authServices.isAuth) {
-      window.location.href = '/register-receipt-category';
+      window.location.href = '/register-recipe-category';
     } else {
-      authServices.deleteUser();
-      window.location.href = '/';
-      alert("Usuário não autenticado. Por favor faça login novamente.");
+      authServices.logoff()
     }
   },
 }

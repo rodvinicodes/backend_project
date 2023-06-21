@@ -9,7 +9,7 @@ const IngredientServices = require('../services/ingredient_services');
 
 router.get("/", AuthServices.validateToken, (req, res) => {
     IngredientModel.list().then((ingredients) => {
-        res.json(sucess(ingredients, "list"))
+        res.json(sucess(ingredients))
     })
 })
 

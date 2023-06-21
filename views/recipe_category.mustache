@@ -9,7 +9,6 @@
 
   <title>Cadastro Categorias</title>
 
-  <script src="javascripts/taskcontrol.js"></script>
 </head>
 
 <body>
@@ -29,13 +28,13 @@
               class="sr-only"></span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white fw-bold fs-5" href="/register-receipts">Cadastrar Receita</a>
+          <a class="nav-link text-white fw-bold fs-5" href="/register-recipes">Cadastrar Receita</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white fw-bold fs-5" href="/register-ingredients">Cadastrar Ingrediente</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white fw-bold fs-5" href="/register-receipt-category"><u>Cadastrar Categoria</u></a>
+          <a class="nav-link text-white fw-bold fs-5" href="/register-recipe-category"><u>Cadastrar Categoria</u></a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-danger fw-bold fs-5" href="/logout">Deslogar</a>
@@ -49,8 +48,8 @@
       <h2>Cadastro de Categorias</h2>
       <form class="p-2">
         <div class="form-group">
-          <label for="inputName" class="fw-bold">Nome:</label>
-          <input type="text" id="inputName" class="form-control" placeholder="Nome do Ingrediente...">
+          <label for="name" class="fw-bold">Nome:</label>
+          <input type="text" id="name" class="form-control" placeholder="Nome da Categoria..." required>
         </div>
         <button type="submit" class="btn btn-success mt-3 fw-bold">Cadastrar</button>
       </form>
@@ -59,37 +58,13 @@
     </div>
     <div class="col-md-5 p-4">
       <h2>Categorias Cadastrados</h2>
-      <ul>
-        <li>
-          <label>Massas</label>
-          -
-          <a href="" class="text-danger text-decoration-none">Excluir</a>
-        </li>
-        <li>
-          <label>Assado</label>
-          -
-          <a href="" class="text-danger text-decoration-none">Excluir</a>
-        </li>
-        <li>
-          <label>Doces</label>
-          -
-          <a href="" class="text-danger text-decoration-none">Excluir</a>
-        </li>
-        <li>
-          <label>Salgados</label>
-          -
-          <a href="" class="text-danger text-decoration-none">Excluir</a>
-        </li>
-        <li>
-          <label>Cozido</label>
-          -
-          <a href="" class="text-danger text-decoration-none">Excluir</a>
-        </li>
+      <ul id="categories">
       </ul>
     </div>
   </div>
 
 
+  <script src="javascripts/controllers/recipe_category_controller.js" type="module"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
