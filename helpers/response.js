@@ -2,7 +2,7 @@ module.exports = {
     sucess: function (obj, name) {
         let resp = { status: true }
         if (name) resp[name] = obj
-        else resp.obj = obj
+        else resp.data = obj
 
         return resp
     },

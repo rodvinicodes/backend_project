@@ -12,8 +12,8 @@ const RecipeCategoryModel = sequelize.define('RecipeCategory',
     { tableName: 'recipe_categories' }
 );
 
-RecipeCategoryModel.hasMany(RecipeModel.Model, { foreignKey: 'categoryId' })
-RecipeModel.Model.belongsTo(RecipeCategoryModel, { foreignKey: 'categoryId' });
+// RecipeCategoryModel.hasMany(RecipeModel.Model, { foreignKey: 'categoryId' })
+// RecipeModel.Model.belongsTo(RecipeCategoryModel, { foreignKey: 'categoryId' });
 
 
 module.exports = {

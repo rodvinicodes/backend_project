@@ -23,11 +23,11 @@ const RecipeModel = sequelize.define('Recipe',
     { tableName: 'recipes' }
 )
 
-RecipeModel.belongsTo(RecipeCategory.Model, { foreignKey: 'categoryId' });
-RecipeCategory.Model.hasMany(RecipeModel, { foreignKey: 'categoryId' });
+// RecipeModel.belongsTo(RecipeCategory.Model, { foreignKey: 'categoryId' });
+// RecipeCategory.Model.hasMany(RecipeModel, { foreignKey: 'categoryId' });
 
-RecipeModel.belongsToMany(Ingredient.Model, { through: RecipeIngredients.Model, foreignKey: 'recipeId' });
-Ingredient.Model.belongsToMany(RecipeModel, { through: RecipeIngredients.Model, foreignKey: 'ingredientId' });
+// RecipeModel.belongsToMany(Ingredient.Model, { through: RecipeIngredients.Model, foreignKey: 'recipeId' });
+// Ingredient.Model.belongsToMany(RecipeModel, { through: RecipeIngredients.Model, foreignKey: 'ingredientId' });
 
 
 module.exports = {

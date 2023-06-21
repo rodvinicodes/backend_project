@@ -12,8 +12,8 @@ const IngredientModel = sequelize.define('Ingredient',
     { tableName: 'ingredients' }
 )
 
-IngredientModel.belongsToMany(Recipe.Model, { through: 'ingredientsId' });
-Recipe.Model.belongsToMany(IngredientModel, { through: 'ingredientsId' });
+// IngredientModel.belongsToMany(Recipe.Model, { through: 'ingredientsId' });
+// Recipe.Model.belongsToMany(IngredientModel, { through: 'ingredientsId' });
 
 
 module.exports = {

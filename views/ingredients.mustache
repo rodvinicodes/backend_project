@@ -9,14 +9,14 @@
 
   <title>Cadastro Ingredientes</title>
 
-  <script src="javascripts/taskcontrol.js"></script>
+  <script src="javascripts/controllers/ingredients_controller.js"></script>
 </head>
 
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-    <a class="navbar-brand" href="index.mustache.html">
-      <img src="/public/images/logo.png" width="80px" alt="">
+    <a class="navbar-brand" href="/home">
+      <img src="images/logo.png" width="80px" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,20 +25,20 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link text-white fs-5 fw-bold " href="index.mustache.html">Página Principal<span
+          <a id="home" class="nav-link text-white fs-5 fw-bold" href="/home">Página Principal<span
               class="sr-only"></span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white fs-5 fw-bold" href="receipts.mustache.html"> Cadastrar Receita</a>
+          <a class="nav-link text-white fw-bold fs-5" href="/register-receipts">Cadastrar Receita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white fs-5 fw-bold" href="ingredients.mustache.html"><u>Cadastrar Ingrediente</u></a>
+          <a class="nav-link text-white  fw-bold fs-5" href="/register-ingredients"><u>Cadastrar Ingrediente</u></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white fs-5 fw-bold" href="recipe_category.mustache.html">Cadastrar Categoria</a>
+          <a class="nav-link text-white fw-bold fs-5" href="/register-receipt-category">Cadastrar Categoria</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-danger fs-5 fw-bold" href="auth.mustache.html">Deslogar</a>
+          <a class="nav-link text-danger fw-bold fs-5" href="/logout">Deslogar</a>
         </li>
       </ul>
     </div>
@@ -60,21 +60,31 @@
 
     <div class="col-md-5 p-4">
       <h2>Ingredientes Cadastrados</h2>
-      <ul>
+      <ul id="list">
         <li>
-          <a>Farinha</a>
+          <label>Farinha</label>
+          -
+          <a href="" class="text-danger text-decoration-none">Excluir</a>
         </li>
         <li>
           <a>Ovo</a>
+          -
+          <a href="" class="text-danger text-decoration-none">Excluir</a>
         </li>
         <li>
           <a>Pó Royal</a>
+          -
+          <a href="" class="text-danger text-decoration-none">Excluir</a>
         </li>
         <li>
           <a>Manteiga</a>
+          -
+          <a href="" class="text-danger text-decoration-none">Excluir</a>
         </li>
         <li>
           <a>Leite</a>
+          -
+          <a href="" class="text-danger text-decoration-none">Excluir</a>
         </li>
       </ul>
     </div>

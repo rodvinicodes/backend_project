@@ -84,13 +84,17 @@ router.post('/admin', AuthServices.validateToken, AuthServices.validateAdmin, as
 router.post('/auth', async function (req, res) {
     const { username, password } = req.body
 
-    let obj = await UserModel.getByUsername(username);
+    let user = await UserModel.getByUsername(username);
 
-    if (obj.username == username && obj.password == password) {
-        let token = jwt.sign({ user: obj }, '#Abcasdfqwr', {
+    if (user && user.username == username && user.password == password) {
+        let token = jwt.sign({ user: user }, '#Abcasdfqwr', {
             expiresIn: '20 min'
         })
-        res.json(sucess({ token }))
+        res.json(sucess({
+            token, user: {
+                username, password
+            }
+        }))
     } else {
         res.status(404).json(fail("Usuário ou senha inválido."))
     }

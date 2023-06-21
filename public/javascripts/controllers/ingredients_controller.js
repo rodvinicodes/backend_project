@@ -1,4 +1,4 @@
-import taskService from "./taskservice.js"
+// import taskService from "./taskservice.js"
 
 async function refreshTasks() {
     let resp = await taskService.getAll()
@@ -130,14 +130,9 @@ async function createTask() {
 
 }
 
-function getRandomColor() {
-    var arr = ['green', 'red', 'yellow', 'purple', 'brown', 'grey', 'pink', 'orange', 'aqua', 'darkgoldenrod'];
-    var idx = Math.floor(Math.random() * arr.length);
-    return arr[idx];
-}
 
 window.addEventListener("load", function () {
-    refreshTasks()
+    // refreshTasks()
 
     document.querySelector("form").addEventListener("submit", async function (evt) {
         evt.preventDefault();
