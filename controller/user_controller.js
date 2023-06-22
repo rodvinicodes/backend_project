@@ -88,7 +88,7 @@ router.post('/auth', async function (req, res) {
 
     if (user && user.username == username && user.password == password) {
         let token = jwt.sign({ user: user }, '#Abcasdfqwr', {
-            expiresIn: '20 min'
+            expiresIn: '50 min'
         })
         res.json(sucess({
             token, user: {

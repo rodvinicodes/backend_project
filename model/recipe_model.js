@@ -1,8 +1,6 @@
 const { DataTypes, Op } = require("sequelize")
 const sequelize = require("../helpers/database")
-const RecipeCategory = require('./recipe_category_model')
-const RecipeIngredients = require('./recipe_ingredients_model')
-const Ingredient = require('./ingredient_model')
+const { RecipeCategoryModel } = require('./recipe_category_model')
 
 
 const RecipeModel = sequelize.define('Recipe',
@@ -23,52 +21,42 @@ const RecipeModel = sequelize.define('Recipe',
     { tableName: 'recipes' }
 )
 
-// RecipeModel.belongsTo(RecipeCategory.Model, { foreignKey: 'categoryId' });
-// RecipeCategory.Model.hasMany(RecipeModel, { foreignKey: 'categoryId' });
-
-// RecipeModel.belongsToMany(Ingredient.Model, { through: RecipeIngredients.Model, foreignKey: 'recipeId' });
-// Ingredient.Model.belongsToMany(RecipeModel, { through: RecipeIngredients.Model, foreignKey: 'ingredientId' });
-
+RecipeModel.belongsTo(RecipeCategoryModel, { foreignKey: "categoryId" })
 
 module.exports = {
     list: async function () {
-        const recipes = await Receita.findAll({
-            include: [RecipeCategory.Model, Ingredient.Model]
+        const recipes = await RecipeModel.findAll({
+            include: [{ model: RecipeCategoryModel }]
         });
 
         return recipes
     },
 
-    save: async function (name, categoryId, ingredientIds, description, method) {
-        if (typeof categoryId === 'string') {
-            obj = await RecipeCategory.getByName(category);
-            if (!obj) {
-                return null
-            }
-            categoryId = obj.id;
-        }
-
+    save: async function (name, categoryId, description, method) {
         const recipe = await RecipeModel.create({
             name: name,
             description: description,
-            method: method
+            method: method,
+            categoryId
         })
 
-        const recipeCategory = await RecipeCategory.getById(categoryId);
+        //  await recipe.setRecipeCategory(recipeCategory);
 
-        if (!recipeCategory) {
-            return false;
-        }
+        // const recipeCategory = await RecipeCategory.getById(categoryId);
 
-        await recipe.setRecipeCategory(recipeCategory);
+        // if (!recipeCategory) {
+        //     return false;
+        // }
 
-        if (ingredientIds && ingredientIds.length > 0) {
-            const ingredients = await Ingredient.findAll({
-                where: { id: ingredientIds }
-            });
+        // await recipe.setRecipeCategory(recipeCategory);
 
-            await recipe.addIngredient(ingredients);
-        }
+        // if (ingredientIds && ingredientIds.length > 0) {
+        //     const ingredients = await Ingredient.findAll({
+        //         where: { id: ingredientIds }
+        //     });
+
+        //     await recipe.addIngredient(ingredients);
+        // }
 
         return recipe;
     },
@@ -118,5 +106,5 @@ module.exports = {
         return receita;
     },
 
-    Model: RecipeModel
+    RecipeModel
 }

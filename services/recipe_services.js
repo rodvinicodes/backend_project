@@ -22,9 +22,9 @@ function validId(req, res, next) {
 }
 
 function verifyAllData(req, res, next) {
-  const { name, categoryId, ingredientIds, description, method } = req.body
+  const { name, categoryId, description, method } = req.body
 
-  if (name != undefined && categoryId != undefined && ingredientIds != undefined && description != undefined && method != undefined) {
+  if (name != undefined && categoryId != undefined && description != undefined && method != undefined) {
     next();
   } else {
     res.status(500).json(fail("Por favor envie todos os dados da receita."))

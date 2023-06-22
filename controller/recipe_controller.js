@@ -23,9 +23,9 @@ router.get("/:id", AuthServices.validateToken, RecipeServices.validId, async (re
 })
 
 router.post("/", AuthServices.validateToken, RecipeServices.verifyAllData, async (req, res) => {
-    const { name, categoryId, ingredientIds, description, method } = req.body
+    const { name, categoryId, description, method } = req.body
 
-    let obj = await RecipeModel.save(name, categoryId, ingredientIds, description, method);
+    let obj = await RecipeModel.save(name, categoryId, description, method);
 
     if (obj)
         res.json(sucess(obj))

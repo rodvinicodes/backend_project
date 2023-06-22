@@ -21,7 +21,7 @@ async function setCategories(items) {
         button.innerText = "Excluir";
 
         button.addEventListener("click", async function () {
-            if (confirm(`Deseja excluir a categoria: ${item.name}?`) == true) {
+            if (confirm(`Deseja excluir o ingrediente: ${item.name}?`) == true) {
                 await ingredientsServices.delete(item.id);
 
                 refreshAll();

@@ -15,19 +15,19 @@ router.get('/', async (req, res) => {
 
     let user = await UserModel.save('admin', 'admin', true);
 
-    const ingredients = ['Arroz', 'Feijão', 'Farinha'];
-    const categories = ['Massas', 'Doces', 'Assados'];
+    // const ingredients = ['Arroz', 'Feijão', 'Farinha'];
+    // const categories = ['Massas', 'Doces', 'Assados'];
 
-    for (var i = 0; i < ingredients.length; i++) {
-        await IngredientModel.save(ingredients[i]);
-    }
+    // for (var i = 0; i < ingredients.length; i++) {
+    //     await IngredientModel.save(ingredients[i]);
+    // }
 
-    for (var i = 0; i < categories.length; i++) {
-        await RecipeCategoryModel.save(categories[i]);
-    }
+    // for (var i = 0; i < categories.length; i++) {
+    //     await RecipeCategoryModel.save(categories[i]);
+    // }
 
 
-    res.json(sucess({ user, ingredients, categories }),)
+    res.json(sucess({ user }),)
 })
 
 module.exports = router

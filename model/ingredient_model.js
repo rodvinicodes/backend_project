@@ -1,6 +1,6 @@
 const { DataTypes, Op } = require("sequelize")
 const sequelize = require("../helpers/database")
-const Recipe = require('./recipe_model')
+const { RecipeModel } = require('./recipe_model')
 
 const IngredientModel = sequelize.define('Ingredient',
     {
@@ -12,19 +12,21 @@ const IngredientModel = sequelize.define('Ingredient',
     { tableName: 'ingredients' }
 )
 
-// IngredientModel.belongsToMany(Recipe.Model, { through: 'ingredientsId' });
-// Recipe.Model.belongsToMany(IngredientModel, { through: 'ingredientsId' });
-
+IngredientModel.belongsTo(RecipeModel, { foreignKey: 'recipeId' });
 
 module.exports = {
     list: async function () {
-        const ingredients = await IngredientModel.findAll()
+        const ingredients = await IngredientModel.findAll({
+            include: [{ model: RecipeModel }]
+        })
+
         return ingredients
     },
 
-    save: async function (name) {
+    save: async function (name, recipeId) {
         const ingredient = await IngredientModel.create({
-            name: name
+            name: name,
+            recipeId
         })
 
         return ingredient
@@ -54,5 +56,5 @@ module.exports = {
         })
     },
 
-    Model: IngredientModel
+    IngredientModel
 }

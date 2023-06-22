@@ -22,9 +22,9 @@ router.get("/:id", AuthServices.validateToken, IngredientServices.validId, (req,
 })
 
 router.post("/", AuthServices.validateToken, IngredientServices.verifyAllData, (req, res) => {
-    const { name } = req.body
+    const { name, recipeId } = req.body
 
-    IngredientModel.save(name).then(ingredient => {
+    IngredientModel.save(name, recipeId).then(ingredient => {
         res.json(sucess(ingredient))
     }).catch(err => {
         console.log(err)

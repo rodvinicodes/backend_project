@@ -1,6 +1,5 @@
 const { DataTypes, Op } = require("sequelize")
 const sequelize = require("../helpers/database")
-const RecipeModel = require('./recipe_model')
 
 const RecipeCategoryModel = sequelize.define('RecipeCategory',
     {
@@ -12,8 +11,6 @@ const RecipeCategoryModel = sequelize.define('RecipeCategory',
     { tableName: 'recipe_categories' }
 );
 
-// RecipeCategoryModel.hasMany(RecipeModel.Model, { foreignKey: 'categoryId' })
-// RecipeModel.Model.belongsTo(RecipeCategoryModel, { foreignKey: 'categoryId' });
 
 
 module.exports = {
@@ -45,5 +42,5 @@ module.exports = {
         return await RecipeCategoryModel.findByPk(id)
     },
 
-    Model: RecipeCategoryModel
+    RecipeCategoryModel
 }

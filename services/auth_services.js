@@ -7,7 +7,7 @@ function validateToken(req, res, next) {
   let token_full = req.headers['authorization']
   if (!token_full)
     token_full = ''
-  let token = token_full.split(': ')[1]
+  let token = token_full.split(' ')[1]
 
   jwt.verify(token, '#Abcasdfqwr', (err, payload) => {
     if (err) {
